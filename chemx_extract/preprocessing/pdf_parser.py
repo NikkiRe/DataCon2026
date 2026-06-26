@@ -12,6 +12,7 @@ logger = logging.getLogger(__name__)
 
 _MAX_IMAGE_PAGES = 50
 _IMAGE_DPI = 150
+_MAX_VISION_PAGES = 8
 
 
 @dataclass
@@ -80,7 +81,7 @@ def _try_marker(pdf_path: Path, work_dir: Path) -> tuple[str, list[Path]] | None
     return markdown, image_paths
 
 
-def _render_pages_pdf2image(pdf_path: Path, work_dir: Path) -> list[Path]:
+def _render_pages_pdf2image(pdf_path: Path, work_dir: Path, *, max_pages: int = _MAX_VISION_PAGES) -> list[Path]:
     try:
         from pdf2image import convert_from_path
     except ImportError:
@@ -94,7 +95,7 @@ def _render_pages_pdf2image(pdf_path: Path, work_dir: Path) -> list[Path]:
             str(pdf_path),
             dpi=_IMAGE_DPI,
             first_page=1,
-            last_page=_MAX_IMAGE_PAGES,
+            last_page=min(max_pages, _MAX_IMAGE_PAGES),
         )
     except Exception as exc:
         logger.warning("pdf2image conversion failed for %s: %s", pdf_path, exc)
@@ -117,11 +118,30 @@ def _append_tables_to_markdown(markdown: str, tables: list[str]) -> str:
     return blocks
 
 
-def parse_pdf(pdf_path: Path, work_dir: Path) -> ParsedDocument:
+def parse_pdf(pdf_path: Path, work_dir: Path, *, use_cache: bool = True) -> ParsedDocument:
     """Parse a PDF into markdown, tables, and optional page images."""
     work_dir.mkdir(parents=True, exist_ok=True)
     pdf_path = Path(pdf_path)
     pdf_name = pdf_path.name
+    cache_md = work_dir / "converted.md"
+
+    if use_cache and cache_md.is_file() and cache_md.stat().st_size > 100:
+        markdown = cache_md.read_text(encoding="utf-8")
+        images_dir = work_dir / "images"
+        image_paths = (
+            sorted(p for p in images_dir.iterdir() if p.is_file())
+            if images_dir.is_dir()
+            else []
+        )
+        if not image_paths:
+            image_paths = _render_pages_pdf2image(pdf_path, work_dir)
+        tables = extract_tables_pdfplumber(pdf_path)
+        return ParsedDocument(
+            pdf_name=pdf_name,
+            markdown=markdown,
+            tables=tables,
+            image_paths=image_paths,
+        )
 
     marker_result = _try_marker(pdf_path, work_dir)
     if marker_result is not None:
@@ -137,6 +157,8 @@ def parse_pdf(pdf_path: Path, work_dir: Path) -> ParsedDocument:
 
     if not image_paths:
         image_paths = _render_pages_pdf2image(pdf_path, work_dir)
+
+    cache_md.write_text(markdown, encoding="utf-8")
 
     return ParsedDocument(
         pdf_name=pdf_name,

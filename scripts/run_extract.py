@@ -49,6 +49,17 @@ def parse_args() -> argparse.Namespace:
         default=None,
         help="Working directory for preprocessing artifacts (default: out/<pdf_stem>/).",
     )
+    parser.add_argument(
+        "--mode",
+        choices=("fast", "pdf", "staged"),
+        default="fast",
+        help="Pipeline mode: fast (default), pdf (1-call), staged (legacy).",
+    )
+    parser.add_argument(
+        "--no-verify",
+        action="store_true",
+        help="Skip second-pass verification (faster, lower quality).",
+    )
     return parser.parse_args()
 
 
@@ -68,7 +79,13 @@ def main() -> int:
 
     work_dir = args.work_dir.resolve() if args.work_dir else None
 
-    df = extract_from_pdf(pdf_path, args.domain, work_dir=work_dir)
+    df = extract_from_pdf(
+        pdf_path,
+        args.domain,
+        work_dir=work_dir,
+        mode=args.mode,
+        verify=not args.no_verify,
+    )
     df.to_csv(output_path, index=False)
 
     print(f"Wrote {len(df)} row(s) to {output_path}")

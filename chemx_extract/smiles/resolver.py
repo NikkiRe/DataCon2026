@@ -41,13 +41,13 @@ PUBCHEM_NAME_URL = (
 
 
 def canonicalize_smiles(s: str) -> str:
-    """Return RDKit-canonical SMILES, or the original string if invalid."""
+    """Return RDKit-canonical SMILES, or NOT_DETECTED if invalid."""
     if s in (None, "", NOT_DETECTED):
         return NOT_DETECTED if s in (None, "") else str(s)
     text = str(s).strip()
     mol = Chem.MolFromSmiles(text)
     if mol is None:
-        return text
+        return NOT_DETECTED
     return Chem.MolToSmiles(mol)
 
 
