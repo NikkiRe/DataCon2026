@@ -1,0 +1,10 @@
+.env
+__pycache__/
+*.pyc
+data/
+test_pdfs/
+results/
+/tmp/
+.DS_Store
+*.egg-info/
+venv/
