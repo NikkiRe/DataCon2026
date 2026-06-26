@@ -27,6 +27,8 @@ Rules:
 5. surface is only an explicit surface-capping/coating molecule on the finished nanozyme. Reducing or protecting agents used during synthesis are not the surface; if no capping molecule is reported, use "NOT_DETECTED".
 6. Report numeric fields as plain numbers in the unit named above; convert if the article uses a different unit for c_min/c_max (to mM) or temperature (to Celsius). Keep km/vmax/ccat values in the article's unit and record that unit verbatim.
 7. Use the authors' exact spelling for formula, surface, units and reaction_type. Snap activity and syngony to the vocabularies above when the meaning matches.
+8. Do not assume implied conditions. Record temperature, ph, and concentrations only when the article gives an explicit value for that specific assay. A generic mention like "at room temperature" without a number is not a value: set temperature to "NOT_DETECTED". Never fill a field with a default or typical value.
+9. Kinetic values (km_value, vmax_value, c_min, c_max, c_const, ccat_value) and their units usually live in tables and the supporting information. Extract them from there. If a quantity is only described qualitatively, or its number is not present in the provided text, set it to "NOT_DETECTED" rather than guessing.
 """
 
 USER = "Extract every nanozyme experiment reported in this article as structured records."
