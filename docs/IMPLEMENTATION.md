@@ -13,6 +13,21 @@ PDF → preprocessing (marker/pdfplumber + tables)
 
 Подробности для агентов: [docs/AGENTS.md](AGENTS.md), [docs/ORCHESTRATOR.md](ORCHESTRATOR.md).
 
+## Модели (staged pipeline + fallback)
+
+| Стадия | Primary | Fallback (OpenAI only) |
+|--------|---------|----------------------|
+| 1. Сжатие текста | Haiku 4.5 | GPT-4o-mini |
+| 1b. Draft vision | GPT-4o-mini | Haiku vision |
+| 2. Structured extract | Opus 4.8 | GPT-4.1 |
+| 2b. Final vision | GPT-4o | Opus vision |
+
+```env
+ANTHROPIC_API_KEY=...
+OPENAI_API_KEY=...
+# Both keys → full hybrid pipeline
+```
+
 ## Быстрый старт
 
 ```bash

@@ -62,3 +62,26 @@ Rules:
 - Numeric values may use comma or dot as decimal separator in the source; preserve the value as a string.
 {hint}
 """
+
+
+def build_compress_prompt(domain: str) -> str:
+    """System prompt for cheap-model fact compression (not summarization)."""
+    columns = get_columns(domain)
+    hint = _DOMAIN_HINTS.get(domain, "")
+    column_list = ", ".join(columns)
+    return f"""{PROMPT_DESCRIPTION}
+
+Domain: {domain}
+
+Compress the article text into a dense fact sheet for downstream structured extraction.
+Target schema columns: {column_list}
+
+Rules:
+- Do NOT write a narrative summary. Extract only experimentally relevant facts.
+- Preserve exact values: compound IDs, numbers, units, bacterial strains, names, ratios.
+- Copy table-like values verbatim when they appear in prose.
+- Include section references when helpful (e.g. "Table 2", "Figure 1").
+- Omit introduction, references, and generic background.
+- If a field is absent, omit it (do not write "{NOT_DETECTED}" here).
+{hint}
+"""

@@ -15,7 +15,8 @@ if str(PROJECT_ROOT) not in sys.path:
 
 load_dotenv(PROJECT_ROOT / ".env")
 
-from chemx_extract.config import OPENAI_API_KEY  # noqa: E402
+from chemx_extract.config import ANTHROPIC_API_KEY, OPENAI_API_KEY  # noqa: E402
+from chemx_extract.exceptions import NoLLMProviderError  # noqa: E402
 from chemx_extract.pipeline import extract_from_pdf  # noqa: E402
 from chemx_extract.schemas import DATASETS  # noqa: E402
 
@@ -27,11 +28,17 @@ domain = st.sidebar.selectbox("Domain", DATASETS, index=DATASETS.index("cocrysta
 
 uploaded = st.file_uploader("PDF file", type=["pdf"])
 
-if not OPENAI_API_KEY:
-    st.warning(
-        "OPENAI_API_KEY is not set. Add it to `.env` or Streamlit secrets. "
-        "Extraction will run without LLM calls and may return empty results."
+if not ANTHROPIC_API_KEY and not OPENAI_API_KEY:
+    st.error(
+        "Set at least one of ANTHROPIC_API_KEY or OPENAI_API_KEY in `.env`. "
+        "Both keys enable the full Haiku → GPT-4o-mini → Opus → GPT-4o pipeline."
     )
+elif not ANTHROPIC_API_KEY:
+    st.info("Anthropic key missing — using OpenAI-only fallback (GPT-4o-mini → GPT-4.1 → GPT-4o).")
+elif not OPENAI_API_KEY:
+    st.info("OpenAI key missing — using Anthropic-only fallback (Haiku → Opus vision).")
+else:
+    st.success("Hybrid pipeline: Haiku → GPT-4o-mini → Opus 4.8 → GPT-4o")
 
 if uploaded is not None:
     st.info(f"Selected: **{uploaded.name}** ({domain})")
@@ -55,6 +62,8 @@ if uploaded is not None:
                     file_name=f"{Path(uploaded.name).stem}.csv",
                     mime="text/csv",
                 )
+            except NoLLMProviderError as exc:
+                st.error(str(exc))
             except Exception as exc:  # noqa: BLE001
                 st.error(f"Extraction failed: {exc}")
 
