@@ -1,0 +1,16 @@
+{
+  "samples": [
+    {
+      "formula": "Mn3O4", "activity": "oxidase", "syngony": "tetragonal",
+      "length": "800", "width": "800", "depth": "800",
+      "surface": "NOT_DETECTED",
+      "km_value": "0.02715", "km_unit": "mM",
+      "vmax_value": "126.7", "vmax_unit": "nM s-1",
+      "reaction_type": "TMB",
+      "c_min": "0", "c_max": "0.416",
+      "c_const": "NOT_DETECTED", "c_const_unit": "NOT_DETECTED",
+      "ccat_value": "5.0", "ccat_unit": "μg mL−1",
+      "ph": "4.0", "temperature": "37"
+    }
+  ]
+}

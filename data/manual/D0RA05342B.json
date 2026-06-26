@@ -1,0 +1,48 @@
+{
+  "samples": [
+    {
+      "formula": "Ir",
+      "activity": "peroxidase",
+      "syngony": "NOT_DETECTED",
+      "length": "2.4",
+      "width": "NOT_DETECTED",
+      "depth": "NOT_DETECTED",
+      "surface": "ascorbic acid",
+      "km_value": "NOT_DETECTED",
+      "km_unit": "NOT_DETECTED",
+      "vmax_value": "NOT_DETECTED",
+      "vmax_unit": "NOT_DETECTED",
+      "reaction_type": "TMB + H2O2",
+      "c_min": "NOT_DETECTED",
+      "c_max": "NOT_DETECTED",
+      "c_const": "NOT_DETECTED",
+      "c_const_unit": "NOT_DETECTED",
+      "ccat_value": "NOT_DETECTED",
+      "ccat_unit": "NOT_DETECTED",
+      "ph": "4.0",
+      "temperature": "20"
+    },
+    {
+      "formula": "Ir",
+      "activity": "catalase",
+      "syngony": "NOT_DETECTED",
+      "length": "2.4",
+      "width": "NOT_DETECTED",
+      "depth": "NOT_DETECTED",
+      "surface": "ascorbic acid",
+      "km_value": "NOT_DETECTED",
+      "km_unit": "NOT_DETECTED",
+      "vmax_value": "NOT_DETECTED",
+      "vmax_unit": "NOT_DETECTED",
+      "reaction_type": "H2O2",
+      "c_min": "NOT_DETECTED",
+      "c_max": "NOT_DETECTED",
+      "c_const": "NOT_DETECTED",
+      "c_const_unit": "NOT_DETECTED",
+      "ccat_value": "NOT_DETECTED",
+      "ccat_unit": "NOT_DETECTED",
+      "ph": "9.0",
+      "temperature": "NOT_DETECTED"
+    }
+  ]
+}

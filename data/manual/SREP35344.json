@@ -1,0 +1,40 @@
+{
+  "samples": [
+    {
+      "formula": "CeO2", "activity": "peroxidase", "syngony": "cubic",
+      "length": "13", "width": "13", "depth": "13",
+      "surface": "NOT_DETECTED",
+      "km_value": "0.217", "km_unit": "mM",
+      "vmax_value": "8.2", "vmax_unit": "10-8 M s-1",
+      "reaction_type": "TMB + H2O2",
+      "c_min": "0", "c_max": "3",
+      "c_const": "NOT_DETECTED", "c_const_unit": "NOT_DETECTED",
+      "ccat_value": "25", "ccat_unit": "μg mL−1",
+      "ph": "4.0", "temperature": "25"
+    },
+    {
+      "formula": "CeO2", "activity": "peroxidase", "syngony": "cubic",
+      "length": "13", "width": "13", "depth": "13",
+      "surface": "NOT_DETECTED",
+      "km_value": "153.6", "km_unit": "mM",
+      "vmax_value": "12.2", "vmax_unit": "10-8 M s-1",
+      "reaction_type": "H2O2 + TMB",
+      "c_min": "0", "c_max": "2000",
+      "c_const": "0.5", "c_const_unit": "mM",
+      "ccat_value": "25", "ccat_unit": "μg mL−1",
+      "ph": "4.0", "temperature": "25"
+    },
+    {
+      "formula": "CeO2", "activity": "peroxidase", "syngony": "cubic",
+      "length": "NOT_DETECTED", "width": "10", "depth": "10",
+      "surface": "NOT_DETECTED",
+      "km_value": "0.240", "km_unit": "mM",
+      "vmax_value": "0.4", "vmax_unit": "10-8 M s-1",
+      "reaction_type": "TMB + H2O2",
+      "c_min": "0", "c_max": "3",
+      "c_const": "NOT_DETECTED", "c_const_unit": "NOT_DETECTED",
+      "ccat_value": "25", "ccat_unit": "μg mL−1",
+      "ph": "4.0", "temperature": "25"
+    }
+  ]
+}

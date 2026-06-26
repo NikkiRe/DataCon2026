@@ -1,0 +1,28 @@
+{
+  "samples": [
+    {
+      "formula": "α-Fe2O3@CoNi", "activity": "peroxidase", "syngony": "trigonal",
+      "length": "700", "width": "700", "depth": "700",
+      "surface": "NOT_DETECTED",
+      "km_value": "0.23", "km_unit": "mM",
+      "vmax_value": "13.5", "vmax_unit": "10-8 M s-1",
+      "reaction_type": "TMB + H2O2",
+      "c_min": "0.25", "c_max": "2.5",
+      "c_const": "130", "c_const_unit": "mM",
+      "ccat_value": "3.0", "ccat_unit": "mg mL−1",
+      "ph": "6.0", "temperature": "20"
+    },
+    {
+      "formula": "α-Fe2O3@CoNi", "activity": "peroxidase", "syngony": "trigonal",
+      "length": "700", "width": "700", "depth": "700",
+      "surface": "NOT_DETECTED",
+      "km_value": "0.42", "km_unit": "mM",
+      "vmax_value": "9.3", "vmax_unit": "10-8 M s-1",
+      "reaction_type": "H2O2 + TMB",
+      "c_min": "6.0", "c_max": "165.0",
+      "c_const": "0.35", "c_const_unit": "mM",
+      "ccat_value": "3.0", "ccat_unit": "mg mL−1",
+      "ph": "6.0", "temperature": "20"
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "samples": [
+    {
+      "formula": "Ru", "activity": "peroxidase", "syngony": "NOT_DETECTED",
+      "length": "NOT_DETECTED", "width": "NOT_DETECTED", "depth": "NOT_DETECTED",
+      "surface": "NOT_DETECTED",
+      "km_value": "0.234", "km_unit": "mM",
+      "vmax_value": "4.95", "vmax_unit": "μM min-1",
+      "reaction_type": "TMB + H2O2",
+      "c_min": "0.05", "c_max": "0.15",
+      "c_const": "0.1", "c_const_unit": "mM",
+      "ccat_value": "10", "ccat_unit": "μg mL−1",
+      "ph": "NOT_DETECTED", "temperature": "25"
+    },
+    {
+      "formula": "Ru", "activity": "peroxidase", "syngony": "NOT_DETECTED",
+      "length": "NOT_DETECTED", "width": "NOT_DETECTED", "depth": "NOT_DETECTED",
+      "surface": "NOT_DETECTED",
+      "km_value": "2.206", "km_unit": "mM",
+      "vmax_value": "34.96", "vmax_unit": "μM min-1",
+      "reaction_type": "H2O2 + TMB",
+      "c_min": "0.05", "c_max": "0.2",
+      "c_const": "0.1", "c_const_unit": "mM",
+      "ccat_value": "10", "ccat_unit": "μg mL−1",
+      "ph": "NOT_DETECTED", "temperature": "25"
+    },
+    {
+      "formula": "Ru", "activity": "oxidase", "syngony": "NOT_DETECTED",
+      "length": "NOT_DETECTED", "width": "NOT_DETECTED", "depth": "NOT_DETECTED",
+      "surface": "NOT_DETECTED",
+      "km_value": "54.92", "km_unit": "μM",
+      "vmax_value": "0.57", "vmax_unit": "μM min-1",
+      "reaction_type": "TMB",
+      "c_min": "0.05", "c_max": "0.5",
+      "c_const": "NOT_DETECTED", "c_const_unit": "NOT_DETECTED",
+      "ccat_value": "50", "ccat_unit": "μg mL−1",
+      "ph": "NOT_DETECTED", "temperature": "25"
+    },
+    {
+      "formula": "Ru", "activity": "oxidase", "syngony": "NOT_DETECTED",
+      "length": "NOT_DETECTED", "width": "NOT_DETECTED", "depth": "NOT_DETECTED",
+      "surface": "NOT_DETECTED",
+      "km_value": "0.155", "km_unit": "mM",
+      "vmax_value": "2.331", "vmax_unit": "μM min-1",
+      "reaction_type": "NaA",
+      "c_min": "0.025", "c_max": "0.2",
+      "c_const": "NOT_DETECTED", "c_const_unit": "NOT_DETECTED",
+      "ccat_value": "50", "ccat_unit": "μg mL−1",
+      "ph": "7.4", "temperature": "25"
+    }
+  ]
+}

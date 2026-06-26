@@ -1,0 +1,52 @@
+{
+  "samples": [
+    {
+      "formula": "Co@Fe3O4", "activity": "peroxidase", "syngony": "cubic",
+      "length": "94.6", "width": "94.6", "depth": "94.6",
+      "surface": "NOT_DETECTED",
+      "km_value": "1.17", "km_unit": "mM",
+      "vmax_value": "37.9", "vmax_unit": "10-8 M s-1",
+      "reaction_type": "TMB + H2O2",
+      "c_min": "0", "c_max": "0.8",
+      "c_const": "100", "c_const_unit": "mM",
+      "ccat_value": "2.0", "ccat_unit": "mg mL−1",
+      "ph": "4.5", "temperature": "25"
+    },
+    {
+      "formula": "Co@Fe3O4", "activity": "peroxidase", "syngony": "cubic",
+      "length": "94.6", "width": "94.6", "depth": "94.6",
+      "surface": "NOT_DETECTED",
+      "km_value": "0.19", "km_unit": "mM",
+      "vmax_value": "71.5", "vmax_unit": "10-8 M s-1",
+      "reaction_type": "H2O2 + TMB",
+      "c_min": "0", "c_max": "600",
+      "c_const": "0.8", "c_const_unit": "mM",
+      "ccat_value": "2.0", "ccat_unit": "mg mL−1",
+      "ph": "4.5", "temperature": "25"
+    },
+    {
+      "formula": "Fe3O4", "activity": "peroxidase", "syngony": "cubic",
+      "length": "89.8", "width": "89.8", "depth": "89.8",
+      "surface": "NOT_DETECTED",
+      "km_value": "1.06", "km_unit": "mM",
+      "vmax_value": "16.8", "vmax_unit": "10-8 M s-1",
+      "reaction_type": "TMB + H2O2",
+      "c_min": "0", "c_max": "0.8",
+      "c_const": "100", "c_const_unit": "mM",
+      "ccat_value": "2.0", "ccat_unit": "mg mL−1",
+      "ph": "4.5", "temperature": "25"
+    },
+    {
+      "formula": "Fe3O4", "activity": "peroxidase", "syngony": "cubic",
+      "length": "89.8", "width": "89.8", "depth": "89.8",
+      "surface": "NOT_DETECTED",
+      "km_value": "56.89", "km_unit": "mM",
+      "vmax_value": "59.6", "vmax_unit": "10-8 M s-1",
+      "reaction_type": "H2O2 + TMB",
+      "c_min": "0", "c_max": "600",
+      "c_const": "0.8", "c_const_unit": "mM",
+      "ccat_value": "2.0", "ccat_unit": "mg mL−1",
+      "ph": "4.5", "temperature": "25"
+    }
+  ]
+}

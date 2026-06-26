@@ -1,0 +1,52 @@
+{
+  "samples": [
+    {
+      "formula": "Ni-Pt", "activity": "peroxidase", "syngony": "cubic",
+      "length": "13.9", "width": "13.9", "depth": "13.9",
+      "surface": "poly(vinylpyrrolidone)",
+      "km_value": "NOT_DETECTED", "km_unit": "NOT_DETECTED",
+      "vmax_value": "NOT_DETECTED", "vmax_unit": "NOT_DETECTED",
+      "reaction_type": "TMB + H2O2",
+      "c_min": "NOT_DETECTED", "c_max": "NOT_DETECTED",
+      "c_const": "2.0", "c_const_unit": "M",
+      "ccat_value": "NOT_DETECTED", "ccat_unit": "NOT_DETECTED",
+      "ph": "NOT_DETECTED", "temperature": "NOT_DETECTED"
+    },
+    {
+      "formula": "Ni-Pt", "activity": "peroxidase", "syngony": "cubic",
+      "length": "12.7", "width": "12.7", "depth": "12.7",
+      "surface": "poly(vinylpyrrolidone)",
+      "km_value": "NOT_DETECTED", "km_unit": "NOT_DETECTED",
+      "vmax_value": "NOT_DETECTED", "vmax_unit": "NOT_DETECTED",
+      "reaction_type": "TMB + H2O2",
+      "c_min": "NOT_DETECTED", "c_max": "NOT_DETECTED",
+      "c_const": "2.0", "c_const_unit": "M",
+      "ccat_value": "NOT_DETECTED", "ccat_unit": "NOT_DETECTED",
+      "ph": "NOT_DETECTED", "temperature": "NOT_DETECTED"
+    },
+    {
+      "formula": "Ni-Pt", "activity": "peroxidase", "syngony": "cubic",
+      "length": "14.9", "width": "14.9", "depth": "14.9",
+      "surface": "poly(vinylpyrrolidone)",
+      "km_value": "NOT_DETECTED", "km_unit": "NOT_DETECTED",
+      "vmax_value": "NOT_DETECTED", "vmax_unit": "NOT_DETECTED",
+      "reaction_type": "TMB + H2O2",
+      "c_min": "NOT_DETECTED", "c_max": "NOT_DETECTED",
+      "c_const": "2.0", "c_const_unit": "M",
+      "ccat_value": "NOT_DETECTED", "ccat_unit": "NOT_DETECTED",
+      "ph": "NOT_DETECTED", "temperature": "NOT_DETECTED"
+    },
+    {
+      "formula": "Pt", "activity": "peroxidase", "syngony": "cubic",
+      "length": "14.6", "width": "14.6", "depth": "14.6",
+      "surface": "poly(vinylpyrrolidone)",
+      "km_value": "NOT_DETECTED", "km_unit": "NOT_DETECTED",
+      "vmax_value": "NOT_DETECTED", "vmax_unit": "NOT_DETECTED",
+      "reaction_type": "TMB + H2O2",
+      "c_min": "NOT_DETECTED", "c_max": "NOT_DETECTED",
+      "c_const": "2.0", "c_const_unit": "M",
+      "ccat_value": "NOT_DETECTED", "ccat_unit": "NOT_DETECTED",
+      "ph": "NOT_DETECTED", "temperature": "NOT_DETECTED"
+    }
+  ]
+}

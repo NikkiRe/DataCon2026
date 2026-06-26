@@ -1,0 +1,28 @@
+{
+  "samples": [
+    {
+      "formula": "LaNiO3", "activity": "peroxidase", "syngony": "NOT_DETECTED",
+      "length": "600", "width": "600", "depth": "600",
+      "surface": "NOT_DETECTED",
+      "km_value": "NOT_DETECTED", "km_unit": "NOT_DETECTED",
+      "vmax_value": "NOT_DETECTED", "vmax_unit": "NOT_DETECTED",
+      "reaction_type": "TMB + H2O2",
+      "c_min": "NOT_DETECTED", "c_max": "NOT_DETECTED",
+      "c_const": "10", "c_const_unit": "mM",
+      "ccat_value": "10", "ccat_unit": "μg mL−1",
+      "ph": "4.5", "temperature": "37"
+    },
+    {
+      "formula": "LaNiO3", "activity": "peroxidase", "syngony": "NOT_DETECTED",
+      "length": "600", "width": "600", "depth": "600",
+      "surface": "NOT_DETECTED",
+      "km_value": "NOT_DETECTED", "km_unit": "NOT_DETECTED",
+      "vmax_value": "NOT_DETECTED", "vmax_unit": "NOT_DETECTED",
+      "reaction_type": "H2O2 + TMB",
+      "c_min": "NOT_DETECTED", "c_max": "NOT_DETECTED",
+      "c_const": "0.8", "c_const_unit": "mM",
+      "ccat_value": "10", "ccat_unit": "μg mL−1",
+      "ph": "4.5", "temperature": "37"
+    }
+  ]
+}

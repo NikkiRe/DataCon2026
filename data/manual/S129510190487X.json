@@ -1,0 +1,16 @@
+{
+  "samples": [
+    {
+      "formula": "Tb4O7", "activity": "oxidase", "syngony": "NOT_DETECTED",
+      "length": "200", "width": "200", "depth": "200",
+      "surface": "NOT_DETECTED",
+      "km_value": "0.000124", "km_unit": "M",
+      "vmax_value": "4.31e-08", "vmax_unit": "M/s",
+      "reaction_type": "TMB",
+      "c_min": "NOT_DETECTED", "c_max": "NOT_DETECTED",
+      "c_const": "NOT_DETECTED", "c_const_unit": "NOT_DETECTED",
+      "ccat_value": "NOT_DETECTED", "ccat_unit": "NOT_DETECTED",
+      "ph": "3.6", "temperature": "25"
+    }
+  ]
+}
