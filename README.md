@@ -103,6 +103,24 @@
 
 Подробные метрики (Precision, Recall, F1 по каждому полю) для каждого домена и каждой экстрагированной величины доступны в папке [`metrics/`](./metrics).
 
+---
+
+## 🚀 Наше решение
+
+Реализован **staged extraction pipeline** с LLM-агентами, SMILES-resolver и Streamlit UI.
+
+**Документация:**
+- [docs/IMPLEMENTATION.md](docs/IMPLEMENTATION.md) — установка, запуск, структура
+- [docs/SUBMISSION.md](docs/SUBMISSION.md) — как получить score и что сдавать
+- [docs/AGENTS.md](docs/AGENTS.md) — инструкции для AI-агентов
+
+```bash
+pip install -r requirements.txt && cp .env.example .env
+python scripts/run_extract.py --pdf article.pdf --domain cocrystals
+streamlit run app/streamlit_app.py
+```
+
+---
 
 ### Метрика оценки
 

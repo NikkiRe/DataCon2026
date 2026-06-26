@@ -1,0 +1,14 @@
+openai>=1.0
+pandas>=2.0
+datasets>=2.14
+rdkit
+python-dotenv
+streamlit
+pdfplumber
+Pillow
+requests
+pytest
+pypdf
+# optional: marker-pdf
+# optional: pdf2image (page rendering when marker unavailable)
+# optional: decimer (image → SMILES)
