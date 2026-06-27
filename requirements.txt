@@ -1,0 +1,15 @@
+openai>=1.0
+anthropic>=0.40
+pandas>=2.0
+datasets>=2.14
+rdkit
+python-dotenv
+streamlit
+pdfplumber
+Pillow
+requests
+pytest
+pypdf
+# optional: pdf2image (page rendering; requires poppler)
+pymupdf
+# optional: decimer (image → SMILES)
