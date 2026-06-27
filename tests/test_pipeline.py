@@ -79,9 +79,12 @@ def test_extract_from_pdf_fast_pipeline(
     pdf_path.write_bytes(b"%PDF-1.4")
 
     parsed = MagicMock()
-    parsed.markdown = "# Title\n\nTable data"
+    parsed.markdown = (
+        "# Title\n\nThe photostability of CBZ-SAC was improved compared with that of pure drug."
+    )
     parsed.image_paths = []
     parsed.tables = []
+    parsed.image_source = "none"
     mock_parse.return_value = parsed
     mock_build_ctx.return_value = MagicMock()
 
@@ -101,6 +104,7 @@ def test_extract_from_pdf_fast_pipeline(
 
     assert len(df) == 1
     assert df.loc[0, "photostability_change"] == "increases"
+    assert df.loc[0, "ratio_cocrystal"] == "1 : 1"
     mock_document.assert_called_once()
     mock_batch_vision.assert_not_called()
 

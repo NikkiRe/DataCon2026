@@ -10,6 +10,6 @@ Pillow
 requests
 pytest
 pypdf
-# optional: marker-pdf
-# optional: pdf2image (page rendering when marker unavailable)
+# optional: pdf2image (page rendering; requires poppler)
+pymupdf
 # optional: decimer (image → SMILES)

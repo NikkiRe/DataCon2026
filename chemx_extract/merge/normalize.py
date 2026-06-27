@@ -5,6 +5,7 @@ from __future__ import annotations
 import re
 
 from chemx_extract.config import NOT_DETECTED
+from chemx_extract.merge.cocrystal_source import canonical_drug_name, format_ratio_cocrystal
 from chemx_extract.merge.serialize import is_missing, serialize_value
 from chemx_extract.schemas import get_columns
 
@@ -98,7 +99,7 @@ def _normalize_coformer(value: str, name_cocrystal: str) -> str:
 def _normalize_cocrystal_ratio(ratio: str, name_cocrystal: str, name_coformer: str) -> str:
     if _is_nanosponge_cocrystal(name_cocrystal, name_coformer):
         return NOT_DETECTED
-    return ratio
+    return format_ratio_cocrystal(ratio)
 
 
 def _normalize_human_animal(value: str) -> str:
@@ -121,6 +122,8 @@ def normalize_field(field: str, value: object, domain: str) -> str:
             text = _normalize_cocrystal_name(text)
         elif field == "photostability_change":
             text = _normalize_photostability(text)
+        elif field == "name_drug":
+            text = canonical_drug_name(text)
     elif domain == "cytotoxicity" and field == "human_animal":
         text = _normalize_human_animal(text)
     elif domain == "nanozymes":
@@ -173,9 +176,9 @@ def normalize_record(record: dict, domain: str) -> dict:
         drug = record.get("name_drug", NOT_DETECTED)
         if is_missing(drug) or "oxyresveratrol" in str(drug).lower():
             out["name_drug"] = serialize_value("name_drug", "oxyresveratrol", domain)
-    elif not is_missing(out.get("name_drug")) and out["name_drug"].lower() == "furosemide":
-        out["name_drug"] = serialize_value("name_drug", "Furosemide", domain)
-    elif not is_missing(out.get("name_drug")) and out["name_drug"].lower() == "carvedilol":
-        out["name_drug"] = serialize_value("name_drug", "carvedilol", domain)
+    elif not is_missing(out.get("name_drug")):
+        out["name_drug"] = serialize_value(
+            "name_drug", canonical_drug_name(str(out["name_drug"])), domain
+        )
 
     return out

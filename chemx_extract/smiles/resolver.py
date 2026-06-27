@@ -98,6 +98,12 @@ def resolve_smiles_fields(row: dict, domain: str) -> dict:
 
     for col in smiles_cols:
         current = resolved.get(col, NOT_DETECTED)
+        name_field = name_map.get(col)
+        if name_field:
+            name_value = resolved.get(name_field, NOT_DETECTED)
+            if not _is_missing(name_value) and str(name_value).strip().lower() == "nanosponge":
+                resolved[col] = NOT_DETECTED
+                continue
         if _is_missing(current):
             name_field = name_map.get(col)
             if name_field:

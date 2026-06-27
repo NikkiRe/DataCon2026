@@ -24,13 +24,18 @@ from chemx_extract.extraction.document_agent import (
 from chemx_extract.extraction.openai_route import openai_extract_model, use_openai
 from chemx_extract.extraction.verify_agent import verify_records
 from chemx_extract.llm.routing import ExtractionContext, build_extraction_context
+from chemx_extract.merge.cocrystal_source import refine_cocrystal_rows_from_source
 from chemx_extract.merge.postprocess import merge_rows, postprocess_dataframe
 from chemx_extract.merge.normalize import normalize_record
+from chemx_extract.merge.verify_guard import guard_verify_output, should_skip_verify
 from chemx_extract.pipeline_log import (
     log_parse_summary,
     log_postprocess,
     log_row_delta,
     log_rows,
+    log_source_refinement,
+    log_verify_guard,
+    log_vision_summary,
     stage,
     stage_header,
 )
@@ -79,9 +84,21 @@ def _rows_to_dataframe(
     rows: list[dict],
     domain: str,
     pdf_stem: str,
+    *,
+    source_text: str = "",
 ) -> pd.DataFrame:
     before = len(rows)
     columns = get_columns(domain)
+
+    normalized_pre = [normalize_record(row, domain) for row in rows]
+    rows = merge_rows(normalized_pre, domain)
+    if len(rows) != before:
+        stage(f"pre-refine merge: {before} → {len(rows)} row(s)")
+
+    if domain == "cocrystals" and source_text.strip():
+        rows, refine_notes = refine_cocrystal_rows_from_source(rows, source_text)
+        log_source_refinement(refine_notes)
+
     normalized = [normalize_record(row, domain) for row in rows]
     merged = merge_rows(normalized, domain)
     if len(merged) != before:
@@ -156,6 +173,7 @@ def _extract_fast(
         table_chars=table_chars,
         cached=cache_hit,
         pdf_mb=pdf_mb,
+        render_method=parsed.image_source,
     )
     stage(f"parse time: {time.monotonic() - t0:.1f}s")
 
@@ -165,12 +183,14 @@ def _extract_fast(
         stage_header("VISION", images=len(parsed.image_paths))
         descriptions = batch_describe_figures(parsed.image_paths, domain, ctx)
         content = inject_figure_descriptions(content, descriptions)
+        log_vision_summary(descriptions, image_count=len(parsed.image_paths))
         stage(f"descriptions: {len(descriptions)} | time: {time.monotonic() - t1:.1f}s")
     else:
         stage("VISION skipped (no images)")
 
     oai_kw = _openai_kwargs(ctx) if oai else {}
     rows: list[dict] = []
+    table_rows: list[dict] = []
 
     if parsed.tables and extract_from_tables:
         t1 = time.monotonic()
@@ -215,26 +235,33 @@ def _extract_fast(
     stage(f"text extract time: {time.monotonic() - t2:.1f}s")
 
     if verify and rows:
-        t3 = time.monotonic()
-        stage_header("VERIFY", rows_in=len(rows))
-        before_verify = list(rows)
-        rows = verify_records(
-            rows,
-            domain,
-            parsed.markdown,
-            ctx,
-            **({"provider": "openai", "model": oai_kw["model"]} if oai else {}),
-        )
-        log_row_delta(before_verify, rows, domain, "VERIFY")
-        log_rows("VERIFY result", rows, domain)
-        stage(f"verify time: {time.monotonic() - t3:.1f}s")
+        combined_before = list(rows)
+        if should_skip_verify(table_rows, combined_before, domain):
+            stage("VERIFY skipped (table + text agree on all cocrystal rows)")
+            rows = combined_before
+        else:
+            t3 = time.monotonic()
+            stage_header("VERIFY", rows_in=len(rows))
+            before_verify = list(rows)
+            rows = verify_records(
+                rows,
+                domain,
+                parsed.markdown,
+                ctx,
+                **({"provider": "openai", "model": oai_kw["model"]} if oai else {}),
+            )
+            rows, guard_notes = guard_verify_output(rows, table_rows, before_verify, domain)
+            log_verify_guard(guard_notes)
+            log_row_delta(before_verify, rows, domain, "VERIFY")
+            log_rows("VERIFY result", rows, domain)
+            stage(f"verify time: {time.monotonic() - t3:.1f}s")
     elif not rows:
         stage("VERIFY skipped (no rows to verify)")
     elif not verify:
         stage("VERIFY skipped (--no-verify)")
 
     stage_header("POSTPROCESS")
-    return _rows_to_dataframe(rows, domain, pdf_path.stem)
+    return _rows_to_dataframe(rows, domain, pdf_path.stem, source_text=parsed.markdown)
 
 
 def _extract_pdf_direct(
@@ -297,7 +324,7 @@ def _extract_staged(
         rows = verify_records(rows, domain, parsed.markdown, ctx)
         log_row_delta(before, rows, domain, "STAGED verify")
 
-    return _rows_to_dataframe(rows, domain, pdf_path.stem)
+    return _rows_to_dataframe(rows, domain, pdf_path.stem, source_text=parsed.markdown)
 
 
 def extract_from_pdf(

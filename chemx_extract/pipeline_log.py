@@ -53,7 +53,7 @@ def log_rows(label: str, rows: list[dict], domain: str, *, max_rows: int = 5) ->
     cols = get_columns(domain)
     stage(f"{label}: {len(rows)} row(s)")
     if not rows:
-        stage(f"  (empty — no records at this stage)")
+        stage("  (empty — no records at this stage)")
         return
 
     stats = field_fill_stats(rows, domain)
@@ -65,12 +65,54 @@ def log_rows(label: str, rows: list[dict], domain: str, *, max_rows: int = 5) ->
         stage(f"  empty fields:  {', '.join(low)}")
 
     for i, row in enumerate(rows[:max_rows]):
-        parts = [f"{c}={_preview(row.get(c, NOT_DETECTED))}" for c in cols[:4]]
-        extra = len(cols) - 4
-        suffix = f" (+{extra} cols)" if extra > 0 else ""
-        stage(f"  row[{i}]: {' | '.join(parts)}{suffix}")
+        stage(f"  row[{i}] full:")
+        for col in cols:
+            val = row.get(col, NOT_DETECTED)
+            stage(f"    {col} = {_preview(val)}")
     if len(rows) > max_rows:
         stage(f"  ... +{len(rows) - max_rows} more row(s)")
+
+
+def log_verify_guard(notes: list[str]) -> None:
+    if not notes:
+        stage("VERIFY GUARD: no restorations")
+        return
+    stage_header("VERIFY GUARD", restorations=len(notes))
+    for note in notes:
+        stage(note)
+
+
+def log_source_refinement(notes: list[str]) -> None:
+    """Log source-text overrides applied after verify."""
+    if not notes:
+        stage("SOURCE REFINE: no overrides")
+        return
+    stage_header("SOURCE REFINE", changes=len(notes))
+    for note in notes:
+        stage(note)
+
+
+def log_vision_summary(descriptions: dict[str, str], *, image_count: int) -> None:
+    """Log vision stage output."""
+    stage_header("VISION RESULT", images=image_count, described=len(descriptions))
+    if not descriptions:
+        stage("  (no descriptions returned)")
+        return
+    for path, desc in list(descriptions.items())[:3]:
+        name = path.split("/")[-1] if "/" in path else path
+        stage(f"  {name}: {_preview(desc)}")
+    if len(descriptions) > 3:
+        stage(f"  ... +{len(descriptions) - 3} more image(s)")
+
+
+def log_render_summary(method: str, paths: list, *, error: str | None = None) -> None:
+    """Log how page images were obtained."""
+    if paths:
+        stage(f"page render: {method} → {len(paths)} image(s)")
+    elif error:
+        stage(f"page render: {method} failed ({error})")
+    else:
+        stage(f"page render: {method} → 0 images")
 
 
 def log_row_delta(before: list[dict], after: list[dict], domain: str, label: str) -> None:
@@ -95,9 +137,13 @@ def log_parse_summary(
     table_chars: int,
     cached: bool,
     pdf_mb: float,
+    render_method: str = "none",
 ) -> None:
     stage_header("PARSE", pdf=f"{pdf_mb:.1f}MB", cache="hit" if cached else "miss")
-    stage(f"text={chars:,} chars | images={images} | pdfplumber_tables={tables} ({table_chars:,} chars)")
+    stage(
+        f"text={chars:,} chars | images={images} ({render_method}) | "
+        f"pdfplumber_tables={tables} ({table_chars:,} chars)"
+    )
     if tables == 0 and chars > 10_000:
         stage("  ⚠ pdfplumber found 0 tables — data may be in prose only")
     if images == 0 and chars > 10_000:

@@ -84,6 +84,7 @@ def postprocess_dataframe(df: pd.DataFrame, domain: str) -> pd.DataFrame:
     for row in out.to_dict(orient="records"):
         row = normalize_record(row, domain)
         row = resolve_smiles_fields(row, domain)
+        row = normalize_record(row, domain)
         for col in columns:
             if col in row and row[col] not in (None, "", NOT_DETECTED):
                 # Re-canonicalize SMILES after serialize
