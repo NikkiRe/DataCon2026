@@ -11,16 +11,16 @@ import requests
 
 from nanozx import dataset
 
-EMAIL = os.environ.get("UNPAYWALL_EMAIL", "ne@agmo.cat")
+EMAIL = os.environ.get("UNPAYWALL_EMAIL", "").strip()
 PDF_DIR = Path(__file__).resolve().parents[1] / "data" / "pdfs"
 MANIFEST = PDF_DIR / "manifest.csv"
-HEADERS = {
-    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
-    "(KHTML, like Gecko) Chrome/124.0 Safari/537.36",
-    "Accept": "text/html,application/pdf,*/*",
-}
 SESSION = requests.Session()
-SESSION.headers.update(HEADERS)
+SESSION.headers.update(
+    {
+        "User-Agent": f"nanozx-downloader/0.1 (+https://github.com/NikkiRe/DataCon2026; mailto:{EMAIL})",
+        "Accept": "text/html,application/pdf,*/*",
+    }
+)
 
 
 def unpaywall_urls(doi: str) -> list[str]:
@@ -91,6 +91,11 @@ def fetch_pdf(url: str, dest: Path) -> bool:
 
 
 def main() -> None:
+    if not EMAIL:
+        sys.exit(
+            "UNPAYWALL_EMAIL is not set. Unpaywall requires a contact email: "
+            "export UNPAYWALL_EMAIL=you@example.com"
+        )
     PDF_DIR.mkdir(parents=True, exist_ok=True)
     df = dataset.load_raw()
     articles = df[df["access"] == 1][["pdf", "doi"]].drop_duplicates("pdf")
