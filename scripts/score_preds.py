@@ -12,6 +12,8 @@ PREDS = Path(__file__).resolve().parents[1] / "data" / "cache" / "preds.csv"
 
 
 def main() -> None:
+    if not PREDS.exists():
+        sys.exit(f"{PREDS} not found: run scripts/run_extract.py first")
     gt = dataset.ground_truth()
     preds = pd.read_csv(PREDS, dtype=str).fillna("nan")
     preds["pdf"] = preds["pdf"].str.lower()
@@ -20,7 +22,14 @@ def main() -> None:
     print(f"GT articles: {gt['pdf'].nunique()} | predicted: {preds['pdf'].nunique()} | covered: {len(covered)}")
 
     full = metric.score(gt, preds)
-    print(f"\nfull-set macro-F1 (39 articles, missing scored 0): {metric.macro_f1(full):.4f}")
+    print(
+        f"\nfull-set macro-F1 ({gt['pdf'].nunique()} articles, missing scored 0): "
+        f"{metric.macro_f1(full):.4f}"
+    )
+
+    if not covered:
+        print("no predictions for ground-truth articles, covered-only score skipped")
+        return
 
     gt_cov = gt[gt["pdf"].isin(covered)]
     cov = metric.score(gt_cov, preds)

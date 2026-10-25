@@ -21,6 +21,10 @@ def stems() -> list[str]:
     return sorted(p.stem for p in PDF_DIR.glob("*.pdf"))
 
 
+def manual_stems() -> list[str]:
+    return sorted(p.stem for p in MANUAL_DIR.glob("*.json"))
+
+
 def records_api(stem: str) -> list[dict]:
     from nanozx import extract
 
@@ -55,7 +59,14 @@ def main() -> None:
     getter = {"api": records_api, "text": records_text, "manual": records_manual}[args.source]
     throttle = args.source in ("api", "text")
 
-    targets = stems()
+    if args.source == "manual":
+        targets = manual_stems()
+        if not targets:
+            sys.exit(f"no JSON files in {MANUAL_DIR}")
+    else:
+        targets = stems()
+        if not targets:
+            sys.exit(f"no PDFs in {PDF_DIR}: run scripts/download_pdfs.py first")
     if args.limit:
         targets = targets[: args.limit]
 
