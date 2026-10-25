@@ -75,7 +75,7 @@ chemx_extract/          # библиотека пайплайна
 app/streamlit_app.py    # демо UI
 scripts/                # CLI
 docs/                   # постановка задачи, заметки по реализации и сдаче
-tests/                  # pytest (маркер integration — тесты с ключом/PDF)
+tests/                  # pytest, юнит-тесты без сети и ключей
 metrics/                # бейзлайн single-agent (организаторы)
 ```
 

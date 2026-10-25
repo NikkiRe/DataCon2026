@@ -56,7 +56,7 @@ scripts/
   download_pdfs.py        скачать open-access PDF по DOI
 
 app/streamlit_app.py      веб-демо: выбор домена, загрузка PDF, таблица, выгрузка CSV
-tests/                    pytest, маркер integration для тестов с ключом/PDF
+tests/                    pytest, юнит-тесты без сети и ключей
 metrics/                  опубликованные метрики single-agent бейзлайна по всем доменам
 docs/                     постановка задачи (TASK.md), заметки по реализации и сдаче (IMPLEMENTATION.md, SUBMISSION.md)
 .env.example              шаблон переменных окружения
@@ -126,11 +126,8 @@ streamlit run app/streamlit_app.py
 pytest -m "not integration"
 ```
 
-Все тесты, включая требующие ключ или PDF:
-
-```bash
-pytest
-```
+Маркер `integration` в `pytest.ini` предназначен для тестов с ключом или PDF; сейчас ни один
+тест им не помечен.
 
 ## Оценка качества
 
