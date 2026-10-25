@@ -19,7 +19,7 @@ Streamlit и документация итогового решения. Под�
 
 ## Что делает
 
-1. Парсит PDF в текст и таблицы (pymupdf или marker-pdf, фолбэк pdfplumber) и рендерит страницы с рисунками в изображения.
+1. Извлекает из PDF текст (marker-pdf, если установлен, иначе pdfplumber) и таблицы (pdfplumber), страницы с рисунками рендерит в изображения (pdf2image, если установлен, иначе pymupdf).
 2. Описывает рисунки vision-моделью и вшивает описания в текст статьи.
 3. Извлекает структурированные записи из таблиц и текста сильной моделью; длинный текст предварительно сжимает дешёвой моделью.
 4. Вторым проходом верифицирует записи (отключается флагом `--no-verify`) и при необходимости резолвит SMILES (RDKit, PubChem по названию).
@@ -42,7 +42,7 @@ chemx_extract/            ядро
   schemas.py              9 доменов: колонки, числовые поля, SMILES-поля, id датасетов
   pipeline.py             extract_from_pdf: режимы fast / pdf / staged
   pipeline_log.py         структурированный лог этапов
-  preprocessing/          парсинг PDF (pymupdf или marker-pdf, фолбэк pdfplumber), таблицы, рендер страниц
+  preprocessing/          текст PDF (marker-pdf или pdfplumber), таблицы (pdfplumber), рендер страниц (pdf2image или pymupdf)
   extraction/             агенты: document, table, vision (batch), сжатие текста, верификация, промпты
   llm/                    клиенты Anthropic/OpenAI и роутинг моделей
   merge/                  нормализация, объединение и постобработка строк, guard верификации
@@ -58,7 +58,7 @@ scripts/
 app/streamlit_app.py      веб-демо: выбор домена, загрузка PDF, таблица, выгрузка CSV
 tests/                    pytest, маркер integration для тестов с ключом/PDF
 metrics/                  опубликованные метрики single-agent бейзлайна по всем доменам
-docs/                     постановка задачи и проектные заметки
+docs/                     постановка задачи (TASK.md), заметки по реализации и сдаче (IMPLEMENTATION.md, SUBMISSION.md)
 .env.example              шаблон переменных окружения
 requirements.txt
 ```
