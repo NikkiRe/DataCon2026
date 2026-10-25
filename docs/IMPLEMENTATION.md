@@ -1,6 +1,6 @@
 # Реализация — ChemX Staged Extraction Pipeline
 
-> Решение для финала DataCon'26. Конкурентное описание задачи — в [README.md](../README.md).
+> Решение для финала DataCon'26. Постановка задачи — в [TASK.md](TASK.md), обзор проекта — в [README.md](../README.md).
 
 ## Архитектура
 
@@ -10,8 +10,6 @@ PDF → preprocessing (marker/pdfplumber + tables)
     → merge + SMILES (PubChem + RDKit)
     → postprocess → CSV
 ```
-
-Подробности для агентов: [docs/AGENTS.md](AGENTS.md), [docs/ORCHESTRATOR.md](ORCHESTRATOR.md).
 
 ## Модели (staged pipeline + fallback)
 
@@ -76,8 +74,8 @@ chemx_extract/          # библиотека пайплайна
   pipeline.py           # extract_from_pdf()
 app/streamlit_app.py    # демо UI
 scripts/                # CLI
-docs/                   # ТЗ для агентов, submission guide
-tests/                  # 33 unit tests
+docs/                   # постановка задачи, заметки по реализации и сдаче
+tests/                  # pytest (маркер integration — тесты с ключом/PDF)
 metrics/                # бейзлайн single-agent (организаторы)
 ```
 
@@ -124,13 +122,3 @@ pip install marker-pdf pdf2image decimer
 
 - `marker-pdf` — лучший PDF→markdown
 - `decimer` — SMILES с рисунков структур
-
-## Документация для субагентов
-
-| Документ | Назначение |
-|----------|------------|
-| [docs/ORCHESTRATOR.md](ORCHESTRATOR.md) | План, статусы задач |
-| [docs/AGENTS.md](AGENTS.md) | Роли: orchestrator / dev / reviewer / tester |
-| [docs/SUBMISSION.md](SUBMISSION.md) | Score, PDF, метрики, checklist |
-| [docs/tasks/](tasks/) | ТЗ TASK-01 … TASK-07 |
-| [docs/reviews/](reviews/) | Отчёты review & test |

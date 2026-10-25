@@ -1,6 +1,6 @@
 # Submission & scoring guide — DataCon2026
 
-For the hackathon team and future agents.
+Notes for the hackathon team.
 
 ## What judges score (100 points)
 
